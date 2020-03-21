@@ -13,7 +13,7 @@ end
 
 
 def index
-  print "content-type: text/html\n\n"
+  print_header
   print <<EOL
 <html>
   <head>
@@ -26,6 +26,12 @@ def index
 </html>
 EOL
 end
+
+
+def print_header
+  print "content-type: text/html\n\n"
+end
+
 
 
 main
