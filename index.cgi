@@ -9,20 +9,35 @@ require 'json'
 
 @cgi = CGI.new
 @client = HTTPClient.new
+@title = "Bruschetta CGI"
 
 
 def main
-  page = @cgi["page"].empty? ? 1 : @cgi["page"].to_i
-  index(page)
+  unless @cgi["id"].empty?
+    book_detail(@cgi["id"].to_i)
+  else
+    page = @cgi["page"].empty? ? 1 : @cgi["page"].to_i
+    index(page)
+  end
 end
 
 
 def index(page)
-  @title = "Bruschetta CGI"
   offset = 25 * (page - 1)
   json = @client.get("http://bruschetta/api/books/?limit=25&offset=#{offset.to_s}").body
   @books = JSON.parse(json)["books"]
   template = File.read("./views/index.erb")
+  erb = ERB.new(template)
+
+  print_header
+  print erb.result
+end
+
+
+def book_detail(id)
+  json = @client.get("http://bruschetta/api/book/#{id.to_s}/").body
+  @book = JSON.parse(json)["books"][0]
+  template = File.read("./views/detail.erb")
   erb = ERB.new(template)
 
   print_header
