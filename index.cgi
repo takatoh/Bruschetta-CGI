@@ -35,5 +35,14 @@ def print_header
 end
 
 
+def title_with_vol(book)
+  unless book["volume"].empty?
+    "#{book["title"]} [#{book["volume"]}]"
+  else
+    book["title"]
+  end
+end
+
+
 
 main
