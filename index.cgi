@@ -9,7 +9,9 @@ require 'json'
 
 @cgi = CGI.new
 @client = HTTPClient.new
-@title = "Bruschetta CGI"
+config = JSON.parse(File.read("./config.json"))
+@title = config["siteTitle"]
+@server = config["server"]
 
 
 def main
@@ -26,7 +28,7 @@ end
 
 def index(page)
   offset = 25 * (page - 1)
-  json = @client.get("http://bruschetta/api/books/?limit=25&offset=#{offset.to_s}").body
+  json = @client.get("http://#{@server}/api/books/?limit=25&offset=#{offset.to_s}").body
   @books = JSON.parse(json)["books"]
   template = File.read("./views/index.erb")
   erb = ERB.new(template)
@@ -38,7 +40,7 @@ end
 
 def search(title, author)
   query = {"title" => title, "author" => author}.delete_if{|k, v| v.empty? }.map{|k, v| k + "=" + v }.join("&")
-  json = @client.get("http://bruschetta/api/search/?#{query}").body
+  json = @client.get("http://#{@server}/api/search/?#{query}").body
   @books = JSON.parse(json)["books"]
   template = File.read("./views/index.erb")
   erb = ERB.new(template)
@@ -49,7 +51,7 @@ end
 
 
 def book_detail(id)
-  json = @client.get("http://bruschetta/api/book/#{id.to_s}/").body
+  json = @client.get("http://#{@server}/api/book/#{id.to_s}/").body
   @book = JSON.parse(json)["books"][0]
   template = File.read("./views/detail.erb")
   erb = ERB.new(template)
