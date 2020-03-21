@@ -12,13 +12,15 @@ require 'json'
 
 
 def main
-  index
+  page = @cgi["page"].empty? ? 1 : @cgi["page"].to_i
+  index(page)
 end
 
 
-def index
+def index(page)
   @title = "Bruschetta CGI"
-  json = @client.get("http://bruschetta/api/books/?limit=25").body
+  offset = 25 * (page - 1)
+  json = @client.get("http://bruschetta/api/books/?limit=25&offset=#{offset.to_s}").body
   @books = JSON.parse(json)["books"]
   template = File.read("./views/index.erb")
   erb = ERB.new(template)
