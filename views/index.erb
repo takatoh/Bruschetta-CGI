@@ -7,6 +7,9 @@
   <body>
     <h1><a href="index.cgi"><%= @title %></a></h1>
     <div>
+      <input type="text"><input type="submit" value="Search">
+    </div>
+    <div>
       <ul>
         <% @books.each do |book| %>
         <li><a href="index.cgi?id=<%= book["id"] %>"><%= title_with_vol(book) %></a> (<%= book["author"] %>)</li>
