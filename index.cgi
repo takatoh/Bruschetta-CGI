@@ -13,8 +13,10 @@ require 'json'
 
 
 def main
-  unless @cgi["id"].empty?
+  if !@cgi["id"].empty?
     book_detail(@cgi["id"].to_i)
+  elsif !(@cgi["title"].empty? && @cgi["author"].empty?)
+    search(@cgi["title"], @cgi["author"])
   else
     page = @cgi["page"].empty? ? 1 : @cgi["page"].to_i
     index(page)
@@ -25,6 +27,18 @@ end
 def index(page)
   offset = 25 * (page - 1)
   json = @client.get("http://bruschetta/api/books/?limit=25&offset=#{offset.to_s}").body
+  @books = JSON.parse(json)["books"]
+  template = File.read("./views/index.erb")
+  erb = ERB.new(template)
+
+  print_header
+  print erb.result
+end
+
+
+def search(title, author)
+  query = {"title" => title, "author" => author}.delete_if{|k, v| v.empty? }.map{|k, v| k + "=" + v }.join("&")
+  json = @client.get("http://bruschetta/api/search/?#{query}").body
   @books = JSON.parse(json)["books"]
   template = File.read("./views/index.erb")
   erb = ERB.new(template)
