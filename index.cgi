@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 require 'cgi'
+require 'erb'
 
 
 @cgi = CGI.new
@@ -13,18 +14,13 @@ end
 
 
 def index
+  @title = "Bruschetta CGI"
+  @message = "Hello, from ERB!"
+  template = File.read("./views/index.erb")
+  erb = ERB.new(template)
+
   print_header
-  print <<EOL
-<html>
-  <head>
-    <title>Bruschetta CGI</title>
-  </head>
-  <body>
-    <h1>Bruschetta CGI</h1>
-    <p>Hello!</p>
-  </body>
-</html>
-EOL
+  print erb.result
 end
 
 
