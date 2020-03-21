@@ -3,9 +3,12 @@
 
 require 'cgi'
 require 'erb'
+require 'httpclient'
+require 'json'
 
 
 @cgi = CGI.new
+@client = HTTPClient.new
 
 
 def main
@@ -15,7 +18,8 @@ end
 
 def index
   @title = "Bruschetta CGI"
-  @message = "Hello, from ERB!"
+  json = @client.get("http://bruschetta/api/books/?limit=25").body
+  @books = JSON.parse(json)["books"]
   template = File.read("./views/index.erb")
   erb = ERB.new(template)
 
