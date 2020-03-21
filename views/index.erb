@@ -9,7 +9,7 @@
     <div>
       <ul>
         <% @books.each do |book| %>
-        <li><%= book["title"] %> (<%= book["author"] %>)</li>
+        <li><%= title_with_vol(book) %> (<%= book["author"] %>)</li>
         <% end %>
       </ul>
     </div>
