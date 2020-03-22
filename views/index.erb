@@ -2,20 +2,25 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title><%= @title %></title>
   </head>
   <body>
-    <h1><a href="index.cgi"><%= @title %></a></h1>
-    <div>
-      <input type="text" id="search-string"><input type="submit" value="Search" id="search-button">
-    </div>
-    <div>
-      <ul>
-        <% @books.each do |book| %>
-        <li><a href="index.cgi?id=<%= book["id"] %>"><%= title_with_vol(book) %></a> (<%= book["author"] %>)</li>
-        <% end %>
-      </ul>
-    </div>
+    <header>
+      <h1><a href="index.cgi"><%= @title %></a></h1>
+    </header>
+    <main>
+      <div>
+        <input type="text" id="search-string"><input type="submit" value="Search" id="search-button">
+      </div>
+      <div>
+        <ul>
+          <% @books.each do |book| %>
+          <li><a href="index.cgi?id=<%= book["id"] %>"><%= title_with_vol(book) %></a> (<%= book["author"] %>)</li>
+          <% end %>
+        </ul>
+      </div>
+    </main>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
