@@ -64,3 +64,17 @@ tr td div.book-title {
 tr td div.book-author {
   padding-left: 20px;
 }
+
+table#book-detail tr {
+  height: 50px;
+}
+
+tr th.detail-name {
+  width: 30%;
+  padding-left: 20px;
+  text-align: left;
+}
+
+tr td.detail-value {
+  width: 70%;
+}

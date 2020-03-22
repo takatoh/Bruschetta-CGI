@@ -2,23 +2,38 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title><%= @title %></title>
   </head>
   <body>
-    <h1><a href="index.cgi"><%= @title %></a></h1>
-    <h2><%= title_with_vol(@book) %></h2>
-    <div>
-      <table>
-        <tr><th>Author:</th><td><%= @book["author"] %></td></tr>
-        <tr><th>Translator:</th><td><%= @book["translator"] %></td></tr>
-        <tr><th>Publisher:</th><td><%= @book["publisher"] %></td></tr>
-        <tr><th>Series:</th><td><%= @book["series"] %></td></tr>
-        <tr><th>Series volume:</th><td><%= @book["series_volume"] %></td></tr>
-        <tr><th>Published on:</th><td><%= @book["published_on"] %></td></tr>
-        <tr><th>ISBN:</th><td><%= @book["isbn"] %></td></tr>
-        <tr><th>Format:</th><td><%= @book["format"] %></td></tr>
-        <tr><th>Note:</th><td><%= @book["note"] %></td></tr>
-      </table>
-    </div>
+    <header>
+      <h1><a href="index.cgi"><%= @title %></a></h1>
+    </header>
+    <main>
+      <h2><%= title_with_vol(@book) %></h2>
+      <div>
+        <table id="book-detail">
+          <tr><th class="detail-name">Author:</th>
+            <td class="detail-value"><%= @book["author"] %></td></tr>
+          <tr><th class="detail-name">Translator:</th>
+            <td class="detail-value"><%= @book["translator"] %></td></tr>
+          <tr><th class="detail-name">Publisher:</th>
+            <td class="detail-value"><%= @book["publisher"] %></td></tr>
+          <tr><th class="detail-name">Series:</th>
+            <td class="detail-value"><%= @book["series"] %></td></tr>
+          <tr><th class="detail-name">Series volume:</th>
+            <td class="detail-value"><%= @book["series_volume"] %></td></tr>
+          <tr><th class="detail-name">Published on:</th>
+            <td class="detail-value"><%= @book["published_on"] %></td></tr>
+          <tr><th class="detail-name">ISBN:</th>
+            <td class="detail-value"><%= @book["isbn"] %></td></tr>
+          <tr><th class="detail-name">Format:</th>
+            <td class="detail-value"><%= @book["format"] %></td></tr>
+          <tr><th class="detail-name">Note:</th>
+            <td class="detail-value"><%= @book["note"] %></td></tr>
+        </table>
+      </div>
+    </main>
   </body>
 </html>
