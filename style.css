@@ -1,0 +1,41 @@
+body {
+  margin: 0 auto;
+  padding: 0;
+  background-color: white;
+  color: black;
+  width: 80%;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+header {
+  padding: 5px 30px;
+  background-color: navy;
+}
+
+header h1 a {
+  color: white;
+}
+
+header h1 a:hover {
+  text-decoration: none;
+}
+
+main {
+  padding: 20px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  height: 40px;
+}
