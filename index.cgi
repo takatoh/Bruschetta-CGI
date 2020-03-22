@@ -39,7 +39,7 @@ end
 
 
 def search(title, author)
-  query = {"title" => title, "author" => author}.delete_if{|k, v| v.empty? }.map{|k, v| k + "=" + v }.join("&")
+  query = {"title" => CGI.escape(title), "author" => CGI.escape(author)}.delete_if{|k, v| v.empty? }.map{|k, v| k + "=" + v }.join("&")
   json = @client.get("http://#{@server}/api/search/?#{query}").body
   @books = JSON.parse(json)["books"]
   template = File.read("./views/index.erb")
