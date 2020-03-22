@@ -30,11 +30,8 @@ def index(page)
   offset = 25 * (page - 1)
   json = @client.get("http://#{@server}/api/books/?limit=25&offset=#{offset.to_s}").body
   @books = JSON.parse(json)["books"]
-  template = File.read("./views/index.erb")
-  erb = ERB.new(template)
 
-  print_header
-  print erb.result
+  render("index")
 end
 
 
@@ -42,20 +39,22 @@ def search(title, author)
   query = {"title" => title, "author" => author}.delete_if{|k, v| v.empty? }.map{|k, v| k + "=" + CGI.escape(v) }.join("&")
   json = @client.get("http://#{@server}/api/search/?#{query}").body
   @books = JSON.parse(json)["books"]
-  template = File.read("./views/index.erb")
-  erb = ERB.new(template)
 
-  print_header
-  print erb.result
+  render("index")
 end
 
 
 def book_detail(id)
   json = @client.get("http://#{@server}/api/book/#{id.to_s}/").body
   @book = JSON.parse(json)["books"][0]
-  template = File.read("./views/detail.erb")
-  erb = ERB.new(template)
 
+  render("detail")
+end
+
+
+def render(template_name)
+  template = File.read("./views/#{template_name}.erb")
+  erb = ERB.new(template)
   print_header
   print erb.result
 end
