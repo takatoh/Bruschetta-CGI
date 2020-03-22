@@ -3,7 +3,7 @@ body {
   padding: 0;
   background-color: white;
   color: black;
-  width: 80%;
+  width: 70%;
 }
 
 a {
@@ -32,10 +32,35 @@ main {
   padding: 20px;
 }
 
-ul {
-  list-style-type: none;
+div#search-box {
+  margin-left: 40px;
 }
 
-li {
-  height: 40px;
+table {
+  margin: 20px 0px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+tr {
+  border-top: solid 1px gray;
+  border-bottom: solid 1px gray;
+}
+
+tr td {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+tr td div {
+  margin-left: 20px;
+  font-family: sans-serif;
+}
+
+tr td div.book-title {
+  font-size: 120%;
+}
+
+tr td div.book-author {
+  padding-left: 20px;
 }

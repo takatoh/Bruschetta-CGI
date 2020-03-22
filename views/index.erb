@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title><%= @title %></title>
   </head>
   <body>
@@ -10,15 +11,16 @@
       <h1><a href="index.cgi"><%= @title %></a></h1>
     </header>
     <main>
-      <div>
+      <div id="search-box">
         <input type="text" id="search-string"><input type="submit" value="Search" id="search-button">
       </div>
       <div>
-        <ul>
+        <table>
           <% @books.each do |book| %>
-          <li><a href="index.cgi?id=<%= book["id"] %>"><%= title_with_vol(book) %></a> (<%= book["author"] %>)</li>
+          <tr><td><div class="book-title"><a href="index.cgi?id=<%= book["id"] %>"><%= title_with_vol(book) %></a></div>
+          <div class="book-author"><%= book["author"] %></div></td></tr>
           <% end %>
-        </ul>
+        </table>
       </div>
     </main>
 
