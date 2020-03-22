@@ -17,8 +17,8 @@ config = JSON.parse(File.read("./config.json"))
 def main
   if !@cgi["id"].empty?
     book_detail(@cgi["id"].to_i)
-  elsif !(@cgi["title"].empty? && @cgi["author"].empty?)
-    search(@cgi["title"], @cgi["author"])
+  elsif !@cgi["search"].empty?
+    search(@cgi["search"])
   else
     page = @cgi["page"].empty? ? 1 : @cgi["page"].to_i
     index(page)
@@ -35,8 +35,8 @@ def index(page)
 end
 
 
-def search(title, author)
-  query = {"title" => title, "author" => author}.delete_if{|k, v| v.empty? }.map{|k, v| k + "=" + CGI.escape(v) }.join("&")
+def search(title_or_author)
+  query = "both=" + CGI.escape(title_or_author)
   json = @client.get("http://#{@server}/api/search/?#{query}").body
   @books = JSON.parse(json)["books"]
 
